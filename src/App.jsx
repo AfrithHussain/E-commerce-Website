@@ -17,7 +17,7 @@ import Orders from "./pages/Orders";
 
 function App() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
 
       <Navbar/>
       <SerachBar/>
