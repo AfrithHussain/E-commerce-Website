@@ -29,6 +29,10 @@ import { useNavigate } from 'react-router-dom';
             toast.error('Select Aleast One Product');
             return
         }
+
+        if(size){
+            toast.success('Product Added to Cart');
+        }
              
         let cartData = structuredClone(cartItem);
 
