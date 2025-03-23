@@ -6,27 +6,23 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 export function DropdownMenuCheckboxes() {
-  const [showStatusBar, setShowStatusBar] = React.useState(true);  // no type annotation needed in JSX
-  const [showActivityBar, setShowActivityBar] = React.useState(false); 
+  const [showStatusBar, setShowStatusBar] = React.useState(true); // no type annotation needed in JSX
+  const [showActivityBar, setShowActivityBar] = React.useState(false);
   const [showPanel, setShowPanel] = React.useState(false);
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="rounded-full shadow-none">
-            
-           
-           <CiUser />
-            </Button>
+          <CiUser />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="">
-       
         <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem
           checked={showStatusBar}

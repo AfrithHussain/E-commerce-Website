@@ -5,10 +5,9 @@ import { ShopContext } from "@/ContextApi/ShopContext";
 import ProductItem from "@/components/ProductItem";
 
 function Collection() {
-
   // Search by collection name
 
-  let { products , search, searchFilter} = useContext(ShopContext);
+  let { products, search, searchFilter } = useContext(ShopContext);
 
   // State to show/hide filters on small screens
   let [showFilter, setshowFilter] = useState(false);
@@ -16,15 +15,11 @@ function Collection() {
   // State to store all products
   let [allProducts, setallProducts] = useState([]);
 
-  
-    
-  
- 
   // Categories filter
   let [categories, setCategories] = useState([]);
   // sort by [price]
 
-  let[sortfilter, setSortFilter] = useState('relevent')
+  let [sortfilter, setSortFilter] = useState("relevent");
 
   let toogleCategory = (e) => {
     if (categories.includes(e.target.value)) {
@@ -41,7 +36,7 @@ function Collection() {
   let toogleSubCategory = (e) => {
     if (subCategories.includes(e.target.value)) {
       setsubCategories((prev) =>
-        prev.filter((item) => item !== e.target.value)
+        prev.filter((item) => item !== e.target.value),
       );
     } else {
       setsubCategories((prev) => [...prev, e.target.value]);
@@ -53,21 +48,21 @@ function Collection() {
   let filterProducts = () => {
     let copyProduct = [...products];
 
-    
-
-    if(searchFilter && search){
-        copyProduct = copyProduct.filter((data)=> data.name.toLowerCase().includes(search.toLowerCase()))
+    if (searchFilter && search) {
+      copyProduct = copyProduct.filter((data) =>
+        data.name.toLowerCase().includes(search.toLowerCase()),
+      );
     }
 
     if (categories.length > 0) {
       copyProduct = copyProduct.filter((item) =>
-        categories.includes(item.category)
+        categories.includes(item.category),
       );
     }
 
     if (subCategories.length > 0) {
       copyProduct = copyProduct.filter((item) =>
-        subCategories.includes(item.subCategory)
+        subCategories.includes(item.subCategory),
       );
     }
     setallProducts(copyProduct);
@@ -75,32 +70,30 @@ function Collection() {
 
   // sorting product based on their price
 
-  let sortProduct = ()=>{
-     let fpCopy = [...allProducts]
+  let sortProduct = () => {
+    let fpCopy = [...allProducts];
 
-     switch(sortfilter){
-      case 'low to high':
-        setallProducts(fpCopy.sort((a,b)=>(a.price - b.price)))
+    switch (sortfilter) {
+      case "low to high":
+        setallProducts(fpCopy.sort((a, b) => a.price - b.price));
         break;
-      case 'high to low':
-         setallProducts(fpCopy.sort((a,b)=>(b.price - a.price))) 
-         break;
+      case "high to low":
+        setallProducts(fpCopy.sort((a, b) => b.price - a.price));
+        break;
       default:
-        filterProducts()
-         break;    
-     }
-     console.log(fpCopy)
-  }
+        filterProducts();
+        break;
+    }
+    console.log(fpCopy);
+  };
 
-   
   useEffect(() => {
     filterProducts();
   }, [categories, subCategories, search, searchFilter]);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     sortProduct();
-  },[sortfilter])
+  }, [sortfilter]);
 
   return (
     <div className="w-full px-4 sm:px-8 md:px-16 lg:px-20">
@@ -194,17 +187,13 @@ function Collection() {
               <hr className="w-16 h-[3px] bg-neutral-700 " />
             </div>
             <div className="w-full sm:w-auto">
-              <select onChange={(e)=>setSortFilter(e.target.value)}
+              <select
+                onChange={(e) => setSortFilter(e.target.value)}
                 className="border p-2  w-52  border-neutral-600 cursor-pointer text-lg"
-                
               >
-                <option  value=" relevent">Sort by: Relevant</option>
-                <option value="high to low" >
-                  Sort by: High to Low
-                </option>
-                <option value="low to high">
-                  Sort by: Low to High
-                </option>
+                <option value=" relevent">Sort by: Relevant</option>
+                <option value="high to low">Sort by: High to Low</option>
+                <option value="low to high">Sort by: Low to High</option>
               </select>
             </div>
           </div>

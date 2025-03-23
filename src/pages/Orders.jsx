@@ -1,5 +1,6 @@
 import { ShopContext } from "@/ContextApi/ShopContext";
 import { useContext } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function Orders() {
   const { products, currency } = useContext(ShopContext);
@@ -14,7 +15,7 @@ function Orders() {
           >
             {/* Product Image and Details */}
             <div className="flex items-center gap-5 md:gap-10 w-full md:w-2/3">
-              <img
+              <LazyLoadImage
                 src={item.image[0]}
                 className="w-20 h-24 md:w-24 md:h-28 object-contain"
                 alt=""
@@ -29,7 +30,9 @@ function Orders() {
                     {item.price}
                   </p>
                   <p>Quantity: 1</p>
-                  <p className="bg-neutral-100 w-8 text-center">{item.sizes[0]}</p>
+                  <p className="bg-neutral-100 w-8 text-center">
+                    {item.sizes[0]}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2 mt-2 text-sm">
                   <p className="text-neutral-800">Date:</p>
