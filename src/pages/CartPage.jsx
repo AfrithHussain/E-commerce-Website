@@ -3,6 +3,7 @@ import { ShopContext } from "@/ContextApi/ShopContext";
 import { useContext, useEffect, useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { toast } from "react-toastify";
 
 function CartPage() {
   let { products, currency, cartItem, updateQuanity, navigation } =
@@ -26,37 +27,44 @@ function CartPage() {
     setCartData(tempCart);
   }, [cartItem]);
 
+  const handleCheckout = () => {
+    if (cartData.length === 0) {
+      toast.error("Please add at least one item to the cart before proceeding.");
+    } else {
+      navigation("/placeholder");
+    }
+  };
+
   return (
     <div>
-      <div className="">
-        <div className="flex justify-start mx-20 mt-16  items-center gap-3">
-          <h1 className="prata-regular text-xl md:text-2xl  xl:text-[32px]">
-            Your Cart
-          </h1>
-          <hr className="w-12 h-[3px] bg-neutral-700" />
-        </div>
+      <div className="flex justify-start mx-20 mt-16 items-center gap-3">
+        <h1 className="prata-regular text-xl md:text-2xl xl:text-[32px]">
+          Your Cart
+        </h1>
+        <hr className="w-12 h-[3px] bg-neutral-700" />
+      </div>
 
-        <div className="">
-          {cartData.map((data, index) => {
+      <div className="mt-10 mx-20">
+        {cartData.length === 0 ? (
+          <p className="text-center text-2xl text-neutral-800 ">No items in cart</p>
+        ) : (
+          cartData.map((data, index) => {
             let productDuplicate = products.find(
-              (item) => item._id === data._id,
+              (item) => item._id === data._id
             );
 
             return (
               <div
                 key={index}
-                className=" gap-10 md:border flex p-5 py-6 mt-10 mx-20 justify-center items-center md:justify-between md:items-center flex-col  md:flex-row"
+                className="gap-10 md:border flex p-5 py-6 mt-6 justify-center items-center md:justify-between flex-col md:flex-row"
               >
-                {/* div 1 */}
-
-                <div className=" flex items-center gap-14 ">
+                <div className="flex items-center gap-14">
                   <LazyLoadImage
                     src={productDuplicate.image[0]}
                     className="w-24 h-28 object-contain"
                     alt=""
                   />
-
-                  <div className="">
+                  <div>
                     <h1 className="text-xl text-neutral-700 outfit">
                       {productDuplicate.name}
                     </h1>
@@ -65,44 +73,41 @@ function CartPage() {
                         {currency}
                         {productDuplicate.price}
                       </p>
-                      <p className="bg-neutral-100 w-8 text-center  ">
-                        {data.size}
-                      </p>
+                      <p className="bg-neutral-100 w-8 text-center">{data.size}</p>
                     </div>
                   </div>
                 </div>
-                <div className="">
-                  <input
-                    onChange={(e) =>
-                      e.target.value === "" || e.target.value === "0"
-                        ? null
-                        : updateQuanity(
-                            data._id,
-                            data.size,
-                            Number(e.target.value),
-                          )
-                    }
-                    type="number"
-                    min={1}
-                    defaultValue={data.quantity}
-                    className="w-10"
-                  />
-                </div>
-                <div className="text-2xl cursor-pointer">
-                  <BsTrash
-                    onClick={() => updateQuanity(data._id, data.size, 0)}
-                  />
-                </div>
+                <input
+                  onChange={(e) =>
+                    e.target.value === "" || e.target.value === "0"
+                      ? null
+                      : updateQuanity(
+                          data._id,
+                          data.size,
+                          Number(e.target.value)
+                        )
+                  }
+                  type="number"
+                  min={1}
+                  defaultValue={data.quantity}
+                  className="w-10 text-center border border-gray-400"
+                />
+                <BsTrash
+                  className="text-2xl cursor-pointer text-red-500"
+                  onClick={() => updateQuanity(data._id, data.size, 0)}
+                />
               </div>
             );
-          })}
-        </div>
+          })
+        )}
       </div>
-      <CartTotal />
-      <div className="flex  justify-end  mx-0 md:mx-64 mt-10">
+
+      {cartData.length > 0 && <CartTotal />}
+
+      <div className="flex justify-end mx-0 md:mx-64 mt-10">
         <button
-          onClick={() => navigation("/placeholder")}
-          className="bg-black text-white outfit rounded-sm p-3 md:p-2 px-6 text-base md:text-sm w-full md:w-auto text-center"
+          onClick={handleCheckout}
+          className="bg-black text-white outfit rounded-sm p-3 md:p-2 px-6 text-base md:text-sm w-full md:w-auto text-center hover:bg-gray-800 transition-all"
         >
           PROCEED TO CHECKOUT
         </button>

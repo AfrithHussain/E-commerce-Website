@@ -22,18 +22,18 @@ function Footer() {
             <h3 className="text-lg font-bold mb-4">COMPANY</h3>
             <ul className="space-y-2 text-sm outfit text-neutral-600">
               <li>
-                <a href="#" className="hover:underline">
+                <a href="/" className="hover:underline">
                   Home
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:underline">
+                <a href="/about" className="hover:underline">
                   About us
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:underline">
-                  Delivery
+                <a href="/contact" className="hover:underline">
+                  Contact us
                 </a>
               </li>
               <li>
@@ -61,7 +61,7 @@ function Footer() {
 
         {/* Footer Bottom */}
         <div className="mt-8 text-center text-sm border-t border-gray-200 pt-4">
-          Copyright © 2024 @ Vogue Vibe - All Right Reserved.
+          Copyright © 2025 @ Vogue Vibe - All Right Reserved.
         </div>
       </footer>
     </div>
